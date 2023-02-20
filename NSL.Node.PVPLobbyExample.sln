@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSL.Node.PVPLobbyExample", "NSL.Node.PVPLobbyExample\NSL.Node.PVPLobbyExample.csproj", "{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSL.Node.PVPLobbyExample.Shared", "NSL.Node.PVPLobbyExample.Shared\NSL.Node.PVPLobbyExample.Shared.csproj", "{70921A22-BE5F-42B2-A033-2E674261F507}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Unity|Any CPU = Unity|Any CPU
+		UnityDebug|Any CPU = UnityDebug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.Unity|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.Unity|Any CPU.Build.0 = Debug|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.UnityDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E08CC7-7C7A-4F6F-B27D-0E7EE4C33851}.UnityDebug|Any CPU.Build.0 = Debug|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.Unity|Any CPU.ActiveCfg = Unity|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.Unity|Any CPU.Build.0 = Unity|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.UnityDebug|Any CPU.ActiveCfg = UnityDebug|Any CPU
+		{70921A22-BE5F-42B2-A033-2E674261F507}.UnityDebug|Any CPU.Build.0 = UnityDebug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6F4469E-92B4-4978-98E0-F3A637889B7A}
+	EndGlobalSection
+EndGlobal
