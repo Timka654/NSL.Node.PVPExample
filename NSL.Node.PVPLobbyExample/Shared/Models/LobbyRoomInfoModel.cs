@@ -19,6 +19,11 @@ namespace NSL.Node.LobbyServerExample.Shared.Models
                 Client = client
             };
 
+            foreach (var item in members.Values.Where(x => x.Client.SearchToken?.IsCancellationRequested != false))
+            {
+                members.TryRemove(item.Client.UID, out _);
+            } 
+
             members.TryAdd(member.Client.UID, member);
 
             client.CurrentRoom = this;

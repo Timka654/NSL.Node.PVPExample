@@ -10,7 +10,6 @@ namespace NSL.Node.LobbyServerExample
     {
         static async Task Main(string[] args)
         {
-
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSingleton<LobbyManager>();

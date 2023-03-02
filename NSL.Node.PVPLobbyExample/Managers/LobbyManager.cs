@@ -16,9 +16,9 @@ namespace NSL.Node.LobbyServerExample.Managers
     {
         private readonly IConfiguration configuration;
 
-        private ConcurrentDictionary<Guid, LobbyNetworkClientModel> clientMap = new ConcurrentDictionary<Guid, LobbyNetworkClientModel>();
+        private int MembersForRun => configuration.GetValue<int>("members_for_run", 2);
 
-        private ConcurrentDictionary<Guid, LobbyRoomInfoModel> roomMap = new ConcurrentDictionary<Guid, LobbyRoomInfoModel>();
+        private ConcurrentDictionary<Guid, LobbyNetworkClientModel> clientMap = new ConcurrentDictionary<Guid, LobbyNetworkClientModel>();
 
         private ConcurrentDictionary<Guid, LobbyRoomInfoModel> processingRoomMap = new ConcurrentDictionary<Guid, LobbyRoomInfoModel>();
 
@@ -29,6 +29,7 @@ namespace NSL.Node.LobbyServerExample.Managers
             builder.AddDisconnectHandle(OnClientDisconnectedHandle);
 
             builder.AddPacketHandle(LobbyPacketEnum.FindOpponent, FindOpponentRequestHandle);
+            builder.AddPacketHandle(LobbyPacketEnum.CancelSearch, CancelSearchRequestHandle);
         }
 
         public LobbyManager(IConfiguration configuration)
@@ -48,12 +49,15 @@ namespace NSL.Node.LobbyServerExample.Managers
 
         private void OnClientDisconnectedHandle(LobbyNetworkClientModel client)
         {
+            if (client == null)
+                return;
+
             var uid = client?.UID;
 
             if (uid != default)
             {
                 clientMap.Remove(uid.Value, out _);
-
+                CancelSearch(client);
                 LeaveRoomMember(client);
             }
         }
@@ -101,48 +105,66 @@ namespace NSL.Node.LobbyServerExample.Managers
 
         private void FindOpponentRequestHandle(LobbyNetworkClientModel client, InputPacketBuffer data)
         {
+            CancelSearch(client);
+
+            client.SearchToken = new CancellationTokenSource();
+
             if (client.CurrentRoom == null)
                 SearchOpponent(client);
         }
 
+        private void CancelSearchRequestHandle(LobbyNetworkClientModel client, InputPacketBuffer data)
+        {
+            CancelSearch(client);
+        }
 
         #endregion
 
         AutoResetEvent startMatchmakeLocker = new AutoResetEvent(true);
 
+        private void CancelSearch(LobbyNetworkClientModel client)
+        {
+            if (client.SearchToken != default)
+                client.SearchToken.Cancel();
+
+            client.SearchToken = null;
+        }
+
+        private LobbyRoomInfoModel room;
+
         private void SearchOpponent(LobbyNetworkClientModel client)
         {
-            startMatchmakeLocker.WaitOne(1000);
-
             try
             {
-                var roomPair = roomMap.FirstOrDefault();
+                startMatchmakeLocker.WaitOne(1000);
 
-                LobbyRoomInfoModel room;
+                client.SearchToken.Token.ThrowIfCancellationRequested();
 
-                if (roomPair.Value != default)
-                    room = roomPair.Value;
-                else
-                {
+                if(room == null)
                     room = new LobbyRoomInfoModel();
 
-                    do
-                    {
-                        room.Id = Guid.NewGuid();
-                    } while (!roomMap.TryAdd(room.Id, room));
-                    roomMap.TryAdd(room.Id, room);
-                }
+                client.SearchToken.Token.ThrowIfCancellationRequested();
 
                 room.AddMember(client);
 
-                if (room.MemberCount() == 2)
-                {
-                    roomMap.Remove(room.Id, out _);
+                client.SearchToken.Token.ThrowIfCancellationRequested();
 
-                    processingRoomMap.TryAdd(room.Id, room);
+                if (room.MemberCount() == MembersForRun)
+                {
+                    do
+                    {
+                        room.Id = Guid.NewGuid();
+                    } while (!processingRoomMap.TryAdd(room.Id, room));
+
+                    client.SearchToken.Token.ThrowIfCancellationRequested();
 
                     room.StartRoom(configuration);
                 }
+            }
+            catch (TaskCanceledException)
+            {
+                if (room.Id != Guid.Empty)
+                    processingRoomMap.Remove(room.Id, out _);
             }
             catch (Exception)
             {

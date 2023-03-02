@@ -10,6 +10,10 @@ namespace NSL.Node.LobbyServerExample.Shared.Models
 
         public Guid CurrentRoomId { get; set; }
 
+        public CancellationTokenSource SearchToken { get; set; }
+
+        public LobbyRoomInfoModel Room { get; set; }
+
         public LobbyRoomInfoModel CurrentRoom { get => currentRoom; set { currentRoom = value; CurrentRoomId = value?.Id ?? default; } }
     }
 }

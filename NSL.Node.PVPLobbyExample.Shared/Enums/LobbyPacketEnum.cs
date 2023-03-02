@@ -3,6 +3,7 @@
     public enum LobbyPacketEnum : ushort
     {
         FindOpponent = 1,
+        CancelSearch,
         StartupRoomInfo
     }
 }
