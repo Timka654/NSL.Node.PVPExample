@@ -3,8 +3,7 @@
     "NSL.Node.LobbyServerExample": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "members_for_run": "1"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:50981;http://localhost:50982"
     }
