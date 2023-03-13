@@ -50,7 +50,7 @@ namespace NSL.Node.LobbyServerExample
 
             var lobbyManager = app.Services.GetRequiredService<LobbyManager>();
 
-            app.RunBridgeLobbyClient(lobbyManager.BridgeValidateSessionAsync, lobbyManager.BridgRoomStartupInfoAsync, lobbyManager.BridgFinishRoomAsync);
+            app.RunBridgeLobbyClient(lobbyManager.BridgeValidateSessionAsync, lobbyManager.BridgeRoomStartupInfoAsync, lobbyManager.BridgeFinishRoomAsync);
 
             await app.RunAsync();
         }

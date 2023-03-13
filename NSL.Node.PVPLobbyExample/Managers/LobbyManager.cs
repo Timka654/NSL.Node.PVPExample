@@ -81,12 +81,12 @@ namespace NSL.Node.LobbyServerExample.Managers
             return Task.FromResult(false);
         }
 
-        internal Task<bool> BridgRoomStartupInfoAsync(Guid roomId, NodeRoomStartupInfo startupInfo)
+        internal Task<bool> BridgeRoomStartupInfoAsync(Guid roomId, NodeRoomStartupInfo startupInfo)
         {
             if (processingRoomMap.TryGetValue(roomId, out var room))
             {
                 startupInfo.SetRoomWaitReady(true);
-                startupInfo.SetRoomPlayerCount(room.MemberCount());
+                startupInfo.SetRoomNodeCount(room.MemberCount());
 
                 return Task.FromResult(true);
             }
@@ -94,7 +94,7 @@ namespace NSL.Node.LobbyServerExample.Managers
             return Task.FromResult(false);
         }
 
-        internal Task BridgFinishRoomAsync(Guid roomId, byte[] data)
+        internal Task BridgeFinishRoomAsync(Guid roomId, byte[] data)
         {
             return Task.CompletedTask;
         }
