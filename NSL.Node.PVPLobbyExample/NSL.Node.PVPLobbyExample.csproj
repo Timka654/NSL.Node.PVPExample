@@ -17,8 +17,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.3"></PackageReference>
-		<PackageReference Include="NSL.BuilderExtensions.WebSocketsServer.AspNet" Version="2023.3.12.342" />
-		<PackageReference Include="NSL.Node.BridgeLobbyClient.AspNetCore" Version="2023.3.13.125" />
+		<PackageReference Include="NSL.BuilderExtensions.WebSocketsServer.AspNet" Version="2023.3.13.1326" />
+		<PackageReference Include="NSL.Node.BridgeLobbyClient.AspNetCore" Version="2023.3.13.1334" />
 	</ItemGroup>
 
 	<ItemGroup>
